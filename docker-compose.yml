@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  app:
+    build: .
+    ports:
+      - '5000:5000'
+    environment:
+      DATABASE_URL: postgres://user:password@db:5432/books
+      JWT_SECRET: asd786zxc687asd86qwe
+      EMAIL_USER: example@gmail.com
+      EMAIL_PASS: 12341234
+      BASE_URL: http://localhost:5000
+      PORT: 5000
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: books
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
